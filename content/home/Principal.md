@@ -1,5 +1,5 @@
 ---
-title: Titulo da página 10
-body: Corpo da página
+title: Titulo da página
+body: Corpo da página principal
 ---
 
