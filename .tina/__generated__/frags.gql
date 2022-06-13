@@ -1,0 +1,4 @@
+fragment HomeParts on Home {
+  title
+  body
+}

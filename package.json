@@ -1,0 +1,23 @@
+{
+  "name": "tina-project-teste",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tinacms server:start -c \"next dev\"",
+    "build": "tinacms server:start -c \"next build\"",
+    "start": "tinacms server:start -c \"next start\"",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@tinacms/cli": "^0.60.21",
+    "next": "12.1.6",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "styled-components": "^5.3.5",
+    "tinacms": "^0.68.8"
+  },
+  "devDependencies": {
+    "eslint": "8.17.0",
+    "eslint-config-next": "12.1.6"
+  }
+}

@@ -1,0 +1,1 @@
+{"version":{"fullVersion":"0.60.6","major":"0","minor":"60","patch":"6"},"meta":{},"collections":[{"label":"Informacoes da Home","name":"home","path":"content/home","fields":[{"type":"string","label":"Titulo","name":"title","namespace":["home","title"]},{"type":"string","label":"Corpo","name":"body","namespace":["home","body"]}],"namespace":["home"]}]}
