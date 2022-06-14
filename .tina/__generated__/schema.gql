@@ -50,6 +50,8 @@ type Query {
   document(collection: String, relativePath: String): DocumentNode!
   home(relativePath: String): Home!
   homeConnection(before: String, after: String, first: Float, last: Float, sort: String): HomeConnection!
+  rooms(relativePath: String): Rooms!
+  roomsConnection(before: String, after: String, first: Float, last: Float, sort: String): RoomsConnection!
 }
 
 type DocumentConnectionEdges {
@@ -75,11 +77,12 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String): DocumentConnection!
 }
 
-union DocumentNode = Home
+union DocumentNode = Home | Rooms
 
 type Home implements Node & Document {
   title: String
   body: String
+  image: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -96,6 +99,26 @@ type HomeConnection implements Connection {
   edges: [HomeConnectionEdges]
 }
 
+type Rooms implements Node & Document {
+  nome_quarto: String
+  descricao_quarto: String
+  imagem_quarto: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+type RoomsConnectionEdges {
+  cursor: String!
+  node: Rooms
+}
+
+type RoomsConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [RoomsConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
@@ -103,15 +126,25 @@ type Mutation {
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   updateHome(relativePath: String!, params: HomeMutation!): Home!
   createHome(relativePath: String!, params: HomeMutation!): Home!
+  updateRooms(relativePath: String!, params: RoomsMutation!): Rooms!
+  createRooms(relativePath: String!, params: RoomsMutation!): Rooms!
 }
 
 input DocumentMutation {
   home: HomeMutation
+  rooms: RoomsMutation
 }
 
 input HomeMutation {
   title: String
   body: String
+  image: String
+}
+
+input RoomsMutation {
+  nome_quarto: String
+  descricao_quarto: String
+  imagem_quarto: String
 }
 
 schema {

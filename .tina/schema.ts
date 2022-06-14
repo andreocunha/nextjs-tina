@@ -17,6 +17,33 @@ const schema = defineSchema({
           type: "string",
           label: "Corpo",
           name: "body",
+        },
+        {
+          type: "image",
+          label: "Imagem",
+          name: "image",
+        }
+      ]
+    },
+    {
+      label: "Quartos",
+      name: "rooms",
+      path: "content/rooms",
+      fields: [
+        {
+          type: "string",
+          label: "Nome do Quarto",
+          name: "nome_quarto",
+        },
+        {
+          type: "string",
+          label: "Descricao do Quarto",
+          name: "descricao_quarto",
+        },
+        {
+          type: "image",
+          label: "Imagem do Quarto",
+          name: "imagem_quarto",
         }
       ]
     },
@@ -38,6 +65,10 @@ const apiURL =
 export const tinaConfig = defineConfig({
   apiURL,
   schema,
+  mediaStore: async () => {
+    const pack = await import("next-tinacms-cloudinary");
+    return pack.TinaCloudCloudinaryMediaStore;
+  },
   cmsCallback: (cms) => {
     //  add your CMS callback code here (if you want)
 

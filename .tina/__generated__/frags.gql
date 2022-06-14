@@ -1,4 +1,11 @@
 fragment HomeParts on Home {
   title
   body
+  image
+}
+
+fragment RoomsParts on Rooms {
+  nome_quarto
+  descricao_quarto
+  imagem_quarto
 }

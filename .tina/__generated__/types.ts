@@ -75,6 +75,8 @@ export type Query = {
   document: DocumentNode;
   home: Home;
   homeConnection: HomeConnection;
+  rooms: Rooms;
+  roomsConnection: RoomsConnection;
 };
 
 
@@ -105,6 +107,20 @@ export type QueryHomeArgs = {
 
 
 export type QueryHomeConnectionArgs = {
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  sort?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryRoomsArgs = {
+  relativePath?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryRoomsConnectionArgs = {
   before?: InputMaybe<Scalars['String']>;
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Float']>;
@@ -147,12 +163,13 @@ export type CollectionDocumentsArgs = {
   sort?: InputMaybe<Scalars['String']>;
 };
 
-export type DocumentNode = Home;
+export type DocumentNode = Home | Rooms;
 
 export type Home = Node & Document & {
   __typename?: 'Home';
   title?: Maybe<Scalars['String']>;
   body?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   _sys: SystemInfo;
   _values: Scalars['JSON'];
@@ -171,6 +188,29 @@ export type HomeConnection = Connection & {
   edges?: Maybe<Array<Maybe<HomeConnectionEdges>>>;
 };
 
+export type Rooms = Node & Document & {
+  __typename?: 'Rooms';
+  nome_quarto?: Maybe<Scalars['String']>;
+  descricao_quarto?: Maybe<Scalars['String']>;
+  imagem_quarto?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON'];
+};
+
+export type RoomsConnectionEdges = {
+  __typename?: 'RoomsConnectionEdges';
+  cursor: Scalars['String'];
+  node?: Maybe<Rooms>;
+};
+
+export type RoomsConnection = Connection & {
+  __typename?: 'RoomsConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float'];
+  edges?: Maybe<Array<Maybe<RoomsConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -179,6 +219,8 @@ export type Mutation = {
   createDocument: DocumentNode;
   updateHome: Home;
   createHome: Home;
+  updateRooms: Rooms;
+  createRooms: Rooms;
 };
 
 
@@ -220,23 +262,45 @@ export type MutationCreateHomeArgs = {
   params: HomeMutation;
 };
 
+
+export type MutationUpdateRoomsArgs = {
+  relativePath: Scalars['String'];
+  params: RoomsMutation;
+};
+
+
+export type MutationCreateRoomsArgs = {
+  relativePath: Scalars['String'];
+  params: RoomsMutation;
+};
+
 export type DocumentMutation = {
   home?: InputMaybe<HomeMutation>;
+  rooms?: InputMaybe<RoomsMutation>;
 };
 
 export type HomeMutation = {
   title?: InputMaybe<Scalars['String']>;
   body?: InputMaybe<Scalars['String']>;
+  image?: InputMaybe<Scalars['String']>;
 };
 
-export type HomePartsFragment = { __typename?: 'Home', title?: string | null, body?: string | null };
+export type RoomsMutation = {
+  nome_quarto?: InputMaybe<Scalars['String']>;
+  descricao_quarto?: InputMaybe<Scalars['String']>;
+  imagem_quarto?: InputMaybe<Scalars['String']>;
+};
+
+export type HomePartsFragment = { __typename?: 'Home', title?: string | null, body?: string | null, image?: string | null };
+
+export type RoomsPartsFragment = { __typename?: 'Rooms', nome_quarto?: string | null, descricao_quarto?: string | null, imagem_quarto?: string | null };
 
 export type HomeQueryVariables = Exact<{
   relativePath: Scalars['String'];
 }>;
 
 
-export type HomeQuery = { __typename?: 'Query', home: { __typename?: 'Home', id: string, title?: string | null, body?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type HomeQuery = { __typename?: 'Query', home: { __typename?: 'Home', id: string, title?: string | null, body?: string | null, image?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type HomeConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']>;
@@ -247,12 +311,38 @@ export type HomeConnectionQueryVariables = Exact<{
 }>;
 
 
-export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, edges?: Array<{ __typename?: 'HomeConnectionEdges', node?: { __typename?: 'Home', id: string, title?: string | null, body?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type HomeConnectionQuery = { __typename?: 'Query', homeConnection: { __typename?: 'HomeConnection', totalCount: number, edges?: Array<{ __typename?: 'HomeConnectionEdges', node?: { __typename?: 'Home', id: string, title?: string | null, body?: string | null, image?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+
+export type RoomsQueryVariables = Exact<{
+  relativePath: Scalars['String'];
+}>;
+
+
+export type RoomsQuery = { __typename?: 'Query', rooms: { __typename?: 'Rooms', id: string, nome_quarto?: string | null, descricao_quarto?: string | null, imagem_quarto?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type RoomsConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  sort?: InputMaybe<Scalars['String']>;
+}>;
+
+
+export type RoomsConnectionQuery = { __typename?: 'Query', roomsConnection: { __typename?: 'RoomsConnection', totalCount: number, edges?: Array<{ __typename?: 'RoomsConnectionEdges', node?: { __typename?: 'Rooms', id: string, nome_quarto?: string | null, descricao_quarto?: string | null, imagem_quarto?: string | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export const HomePartsFragmentDoc = gql`
     fragment HomeParts on Home {
   title
   body
+  image
+}
+    `;
+export const RoomsPartsFragmentDoc = gql`
+    fragment RoomsParts on Rooms {
+  nome_quarto
+  descricao_quarto
+  imagem_quarto
 }
     `;
 export const HomeDocument = gql`
@@ -302,6 +392,53 @@ export const HomeConnectionDocument = gql`
   }
 }
     ${HomePartsFragmentDoc}`;
+export const RoomsDocument = gql`
+    query rooms($relativePath: String!) {
+  rooms(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...RoomsParts
+  }
+}
+    ${RoomsPartsFragmentDoc}`;
+export const RoomsConnectionDocument = gql`
+    query roomsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String) {
+  roomsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+  ) {
+    totalCount
+    edges {
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...RoomsParts
+      }
+    }
+  }
+}
+    ${RoomsPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -310,6 +447,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     homeConnection(variables?: HomeConnectionQueryVariables, options?: C): Promise<{data: HomeConnectionQuery, variables: HomeConnectionQueryVariables, query: string}> {
         return requester<{data: HomeConnectionQuery, variables: HomeConnectionQueryVariables, query: string}, HomeConnectionQueryVariables>(HomeConnectionDocument, variables, options);
+      },
+    rooms(variables: RoomsQueryVariables, options?: C): Promise<{data: RoomsQuery, variables: RoomsQueryVariables, query: string}> {
+        return requester<{data: RoomsQuery, variables: RoomsQueryVariables, query: string}, RoomsQueryVariables>(RoomsDocument, variables, options);
+      },
+    roomsConnection(variables?: RoomsConnectionQueryVariables, options?: C): Promise<{data: RoomsConnectionQuery, variables: RoomsConnectionQueryVariables, query: string}> {
+        return requester<{data: RoomsConnectionQuery, variables: RoomsConnectionQueryVariables, query: string}, RoomsConnectionQueryVariables>(RoomsConnectionDocument, variables, options);
       }
     };
   }

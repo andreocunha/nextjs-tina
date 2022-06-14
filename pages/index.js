@@ -1,13 +1,15 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { staticRequest } from 'tinacms'
 import { useTina } from 'tinacms/dist/edit-state'
+import Link from 'next/link'
+import { getData } from '../lib/api'
 
 
 const query = `{
   home(relativePath: "Principal.md"){
     title,
-    body
+    body,
+    image
   }
 }`
 
@@ -17,8 +19,6 @@ export default function Home(props) {
     variables: {},
     data: props.data,
   })
-
-  console.log(data)
 
   return (
     <div className={styles.container}>
@@ -38,6 +38,12 @@ export default function Home(props) {
           {data.home.body}
         </p>
 
+        <img src={data.home.image} width="300px" alt="logo" />
+
+        <Link href="/teste">
+          <a>Teste</a>
+        </Link>
+
       </main>
     </div>
   )
@@ -45,15 +51,7 @@ export default function Home(props) {
 
 
 export async function getStaticProps(context) {
-  let data = {}
-  try {
-    data = await staticRequest({
-      query,
-      variables: { relativePath: 'Principal.md' },
-    })
-  } catch {
-    // swallow errors related to document creation
-  }
+  const data = await getData("home", "Principal.md", "title, body, image");
 
   return {
     props: { data },
