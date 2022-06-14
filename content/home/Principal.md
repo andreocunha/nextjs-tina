@@ -1,11 +1,7 @@
 ---
-title: Titulo da página
-<<<<<<< HEAD
-body: Corpo da página
+title: Titulo do site
+body: Mensagem de exemplo
 image: >-
-  https://res.cloudinary.com/andreocunha/image/upload/v1655166641/praia_mmr8un.jpg
-=======
-body: Corpo da página principal 123123
->>>>>>> c12c29e08a3479ac93036396f5d36de1fba20a74
+  https://res.cloudinary.com/andreocunha/image/upload/v1655158803/h1_hero_oi0ijw.jpg
 ---
 
