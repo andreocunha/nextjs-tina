@@ -40,8 +40,10 @@ export default function Home(props) {
 
         <img src={data.home.image} width="300px" alt="logo" />
 
-        <Link href="/teste">
-          <a>Teste</a>
+        <Link href="/rooms">
+          <button>
+            Ver Quartos
+          </button>
         </Link>
 
       </main>
