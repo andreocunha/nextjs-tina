@@ -15,14 +15,15 @@ export default function Room(props){
     data: props?.data? props?.data : {},
   })
 
+  console.log(props)
   console.log(data)
   
   return(
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
       <h1>Quarto</h1>
-      <h1>{data?.rooms.nome_quarto}</h1>
-      <p>{data?.rooms.descricao_quarto}</p>
-      <img src={data?.rooms.imagem_quarto} alt={data?.rooms.nome_quarto} width={150} />
+      <h1>{data?.rooms?.nome_quarto}</h1>
+      <p>{data?.rooms?.descricao_quarto}</p>
+      <img src={data?.rooms?.imagem_quarto} alt={data?.rooms?.nome_quarto} width={150} />
     </div>
   );
 }
@@ -30,6 +31,8 @@ export default function Room(props){
 export const getServerSideProps = async (context) => {
   const quarto = context.query.quarto;
   const data = await getData("rooms", quarto, "nome_quarto, descricao_quarto, imagem_quarto");
+
+  console.log(data)
 
   return {
     props: {
