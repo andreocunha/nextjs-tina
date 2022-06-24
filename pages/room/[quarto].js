@@ -1,18 +1,20 @@
-import { staticRequest } from 'tinacms';
 import { useTina } from 'tinacms/dist/edit-state'
+import { getAllRooms, getEspecificRoom } from '../../lib/api';
 
+export default function Room({ info, slug }) {
+  // console.log(info)
+  // console.log(slug)
 
-export default function Room(props) {
   const { data } = useTina({
     query: `{
-      rooms(relativePath: "${props?.slug}"){
+      rooms(relativePath: "${slug}"){
         nome_quarto,
         descricao_quarto,
         imagem_quarto
       }
     }`,
     variables: {},
-    data: props?.data,
+    data: info,
   })
 
   return (
@@ -37,37 +39,28 @@ export default function Room(props) {
 //   }
 // }
 
-export const getServerSideProps = async (context) => {
-  const quarto = context.query.quarto;
+export async function getStaticProps({ params }) {
+  const room = await getEspecificRoom(params.quarto)
 
-  // se o quarto tiver .md, então é um arquivo markdown
-  if (quarto.indexOf(".md") > -1) {
-    let data = {}
-    try {
-      data = await staticRequest({
-        query: `{
-        rooms(relativePath: "${quarto}"){
-          nome_quarto,
-          descricao_quarto,
-          imagem_quarto
-        }
-      }`,
-        variables: {},
-      })
-    } catch (err) {
-      console.log(err)
-    }
-
-    return {
-      props: {
-        data,
-        slug: quarto,
-      },
-    }
-  }
   return {
     props: {
-      data: {}
+      info: room.rooms,
+      slug: params.quarto,
     },
+  }
+}
+
+export async function getStaticPaths() {
+  const rooms = await getAllRooms();
+
+  return {
+    paths: rooms.map((post) => {
+      return {
+        params: {
+          quarto: post.rooms.slug,
+        },
+      }
+    }),
+    fallback: false,
   }
 }
