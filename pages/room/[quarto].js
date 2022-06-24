@@ -20,9 +20,9 @@ export default function Room({ info, slug }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
       <h1>Quarto</h1>
-      <h1>{data?.rooms?.nome_quarto}</h1>
-      <p>{data?.rooms?.descricao_quarto}</p>
-      <img src={data?.rooms?.imagem_quarto} alt={data?.rooms?.nome_quarto} width={150} />
+      <h1>{data?.rooms?.nome_quarto || data?.nome_quarto}</h1>
+      <p>{data?.rooms?.descricao_quarto || data?.descricao_quarto}</p>
+      <img src={data?.rooms?.imagem_quarto || data?.imagem_quarto} alt={data?.rooms?.nome_quarto || data?.nome_quarto} width={150} />
     </div>
   );
 }
