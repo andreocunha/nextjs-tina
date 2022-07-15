@@ -2,9 +2,6 @@ import { useTina } from 'tinacms/dist/edit-state'
 import { getAllRooms, getEspecificRoom } from '../../lib/api';
 
 export default function Room({ info, slug }) {
-  // console.log(info)
-  // console.log(slug)
-
   const { data } = useTina({
     query: `{
       rooms(relativePath: "${slug}"){
@@ -26,18 +23,6 @@ export default function Room({ info, slug }) {
     </div>
   );
 }
-
-// export const getServerSideProps = async (context) => {
-//   const quarto = context.query.quarto;
-//   const data = await getData("rooms", quarto, "nome_quarto, descricao_quarto, imagem_quarto");
-
-//   return {
-//     props: {
-//       data: data,
-//       slug: quarto,
-//     }
-//   }
-// }
 
 export async function getStaticProps({ params }) {
   const room = await getEspecificRoom(params.quarto)
