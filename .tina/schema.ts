@@ -70,7 +70,7 @@ export const tinaConfig = defineConfig({
     return pack.TinaCloudCloudinaryMediaStore;
   },
   cmsCallback: (cms) => {
-    cms.flags.set("experimentalData", true);
+    cms.flags.set("experimentalData", false);
     //  add your CMS callback code here (if you want)
 
     // The Route Mapper
