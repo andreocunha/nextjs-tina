@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tinacms server:start -c \"next dev\"",
     "build": "tinacms server:start -c \"next build\"",
-    "start": "tinacms server:start -c \"next start\"",
+    "start": "tinacms server:start -c \"next start\"  --experimentalData",
     "lint": "next lint"
   },
   "dependencies": {
