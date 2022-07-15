@@ -15,14 +15,13 @@ query home($relativePath: String!) {
   }
 }
 
-query homeConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: HomeFilter) {
+query homeConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String) {
   homeConnection(
     before: $before
     after: $after
     first: $first
     last: $last
     sort: $sort
-    filter: $filter
   ) {
     totalCount
     edges {
@@ -61,14 +60,13 @@ query rooms($relativePath: String!) {
   }
 }
 
-query roomsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: RoomsFilter) {
+query roomsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String) {
   roomsConnection(
     before: $before
     after: $after
     first: $first
     last: $last
     sort: $sort
-    filter: $filter
   ) {
     totalCount
     edges {
