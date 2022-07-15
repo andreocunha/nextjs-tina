@@ -49,9 +49,14 @@ type Query {
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
   home(relativePath: String): Home!
-  homeConnection(before: String, after: String, first: Float, last: Float, sort: String): HomeConnection!
+  homeConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: HomeFilter): HomeConnection!
   rooms(relativePath: String): Rooms!
-  roomsConnection(before: String, after: String, first: Float, last: Float, sort: String): RoomsConnection!
+  roomsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: RoomsFilter): RoomsConnection!
+}
+
+input DocumentFilter {
+  home: HomeFilter
+  rooms: RoomsFilter
 }
 
 type DocumentConnectionEdges {
@@ -74,7 +79,7 @@ type Collection {
   matches: String
   templates: [JSON]
   fields: [JSON]
-  documents(before: String, after: String, first: Float, last: Float, sort: String): DocumentConnection!
+  documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter): DocumentConnection!
 }
 
 union DocumentNode = Home | Rooms
@@ -86,6 +91,26 @@ type Home implements Node & Document {
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input StringFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input ImageFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input HomeFilter {
+  title: StringFilter
+  body: StringFilter
+  image: ImageFilter
 }
 
 type HomeConnectionEdges {
@@ -106,6 +131,12 @@ type Rooms implements Node & Document {
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input RoomsFilter {
+  nome_quarto: StringFilter
+  descricao_quarto: StringFilter
+  imagem_quarto: ImageFilter
 }
 
 type RoomsConnectionEdges {

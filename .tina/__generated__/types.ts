@@ -112,6 +112,7 @@ export type QueryHomeConnectionArgs = {
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<HomeFilter>;
 };
 
 
@@ -126,6 +127,12 @@ export type QueryRoomsConnectionArgs = {
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<RoomsFilter>;
+};
+
+export type DocumentFilter = {
+  home?: InputMaybe<HomeFilter>;
+  rooms?: InputMaybe<RoomsFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -161,6 +168,7 @@ export type CollectionDocumentsArgs = {
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<DocumentFilter>;
 };
 
 export type DocumentNode = Home | Rooms;
@@ -173,6 +181,26 @@ export type Home = Node & Document & {
   id: Scalars['ID'];
   _sys: SystemInfo;
   _values: Scalars['JSON'];
+};
+
+export type StringFilter = {
+  startsWith?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']>;
+  exists?: InputMaybe<Scalars['Boolean']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ImageFilter = {
+  startsWith?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']>;
+  exists?: InputMaybe<Scalars['Boolean']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type HomeFilter = {
+  title?: InputMaybe<StringFilter>;
+  body?: InputMaybe<StringFilter>;
+  image?: InputMaybe<ImageFilter>;
 };
 
 export type HomeConnectionEdges = {
@@ -196,6 +224,12 @@ export type Rooms = Node & Document & {
   id: Scalars['ID'];
   _sys: SystemInfo;
   _values: Scalars['JSON'];
+};
+
+export type RoomsFilter = {
+  nome_quarto?: InputMaybe<StringFilter>;
+  descricao_quarto?: InputMaybe<StringFilter>;
+  imagem_quarto?: InputMaybe<ImageFilter>;
 };
 
 export type RoomsConnectionEdges = {
@@ -308,6 +342,7 @@ export type HomeConnectionQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<HomeFilter>;
 }>;
 
 
@@ -326,6 +361,7 @@ export type RoomsConnectionQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<RoomsFilter>;
 }>;
 
 
@@ -364,13 +400,14 @@ export const HomeDocument = gql`
 }
     ${HomePartsFragmentDoc}`;
 export const HomeConnectionDocument = gql`
-    query homeConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String) {
+    query homeConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: HomeFilter) {
   homeConnection(
     before: $before
     after: $after
     first: $first
     last: $last
     sort: $sort
+    filter: $filter
   ) {
     totalCount
     edges {
@@ -411,13 +448,14 @@ export const RoomsDocument = gql`
 }
     ${RoomsPartsFragmentDoc}`;
 export const RoomsConnectionDocument = gql`
-    query roomsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String) {
+    query roomsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: RoomsFilter) {
   roomsConnection(
     before: $before
     after: $after
     first: $first
     last: $last
     sort: $sort
+    filter: $filter
   ) {
     totalCount
     edges {
