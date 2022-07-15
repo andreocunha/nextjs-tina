@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "tinacms server:start -c \"next dev\" --experimentalData",
-    "build": "tinacms server:start -c \"next build\" --experimentalData",
+    "dev": "tinacms server:start -c \"next dev\"",
+    "build": "tinacms server:start -c \"next build\"",
     "start": "tinacms server:start -c \"next start\" --experimentalData",
     "lint": "next lint"
   },
